@@ -6,13 +6,13 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 12:55:11 by gilee             #+#    #+#             */
-/*   Updated: 2021/01/27 13:52:09 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 20:53:56 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void		allfree(char **res, int i)
+static void	allfree(char **res, int i)
 {
 	while (i)
 		free(res[--i]);
@@ -39,24 +39,28 @@ static size_t	ft_getdeli(char const *s, char c)
 	return (count);
 }
 
-static char		**ft_setsrc(size_t len)
+static char	**ft_setsrc(size_t len)
 {
 	char	**res;
 	int		flag;
 
-	flag = len == 1 ? 1 : 2;
+	flag = 1;
+	if (len != 1)
+		flag = 2;
 	if (len == 0)
 	{
-		if (!(res = ft_calloc(1, sizeof(char *))))
+		res = ft_calloc(1, sizeof(char *));
+		if (!res)
 			return (NULL);
 		return (res);
 	}
-	if (!(res = ft_calloc(len + flag, sizeof(char *))))
+	res = ft_calloc(len + flag, sizeof(char *));
+	if (!res)
 		return (NULL);
 	return (res);
 }
 
-static char		*ft_setstr(char **s, char c)
+static char	*ft_setstr(char **s, char c)
 {
 	size_t	count;
 	char	*ps;
@@ -69,12 +73,13 @@ static char		*ft_setstr(char **s, char c)
 		count++;
 		*s += 1;
 	}
-	if (!(res = (char *)ft_calloc(count + 1, sizeof(char))))
+	res = (char *)ft_calloc(count + 1, sizeof(char));
+	if (!res)
 		return (NULL);
 	return (ft_memcpy(res, ps, count));
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char			**res;
 	char			*ps;
@@ -82,13 +87,15 @@ char			**ft_split(char const *s, char c)
 
 	ps = (char *)s;
 	i = 0;
-	if (!(res = ft_setsrc(ft_getdeli(s, c))))
+	res = ft_setsrc(ft_getdeli(s, c));
+	if (!res)
 		return (NULL);
 	while (*ps)
 	{
 		if (*ps != c)
 		{
-			if (!(res[i++] = ft_setstr(&ps, c)))
+			res[i] = ft_setstr(&ps, c);
+			if (!res[i++])
 			{
 				allfree(res, i);
 				return (NULL);

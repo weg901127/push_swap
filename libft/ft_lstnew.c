@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 18:29:23 by gilee             #+#    #+#             */
-/*   Updated: 2021/01/18 18:30:18 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 20:11:38 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ t_list	*ft_lstnew(void *content)
 {
 	t_list	*link;
 
-	if (!(link = (t_list*)malloc(sizeof(t_list))))
+	link = (t_list *)malloc(sizeof(t_list));
+	if (!link)
 		return (NULL);
-	link->content = (void*)content;
+	link->content = (void *)content;
 	link->next = NULL;
 	return (link);
 }

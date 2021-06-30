@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memccpy.c                                       :+:      :+:    :+:   */
+/*   deque_get.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/26 04:43:03 by gilee             #+#    #+#             */
-/*   Updated: 2021/06/30 20:12:49 by gilee            ###   ########.fr       */
+/*   Created: 2021/06/30 13:13:02 by gilee             #+#    #+#             */
+/*   Updated: 2021/06/30 13:13:33 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "deque.h"
 
-void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
+void	*get_first(t_deque *deque)
 {
-	void	*p;
+	void	*content;
 
-	p = ft_memchr(src, c, n);
-	if (p != NULL)
-		return (ft_memcpy(dest, src, p - src + 1) + (p - src + 1));
-	ft_memcpy(dest, src, n);
-	return (NULL);
+	if (!is_empty(deque))
+		content = deque->head->content;
+	return (content);
+}
+
+void	*get_last(t_deque *deque)
+{
+	void	*content;
+
+	if (!is_empty(deque))
+		content = deque->tail->content;
+	return (content);
 }

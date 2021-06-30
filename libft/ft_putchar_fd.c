@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 05:33:53 by gilee             #+#    #+#             */
-/*   Updated: 2021/01/01 05:43:10 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 20:15:22 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putchar_fd(char c, int fd)
 {
-	char *pc;
+	char	*pc;
 
 	pc = &c;
 	write(fd, pc, 1);

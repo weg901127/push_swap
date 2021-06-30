@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 07:26:01 by gilee             #+#    #+#             */
-/*   Updated: 2021/01/21 03:32:30 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 20:17:09 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*ft_strdup(const char *s1)
 
 	ps1 = s1;
 	len = ft_strlen(s1);
-	if (!(rest = (char *)ft_calloc(len + 1, sizeof(char))))
+	rest = (char *)ft_calloc(len + 1, sizeof(char));
+	if (!rest)
 		return (NULL);
 	while (len--)
 	{

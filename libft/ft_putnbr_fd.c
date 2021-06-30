@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 06:45:17 by gilee             #+#    #+#             */
-/*   Updated: 2021/01/21 03:38:22 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 20:16:03 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_getlen(int n)
 
 static int	ft_ndec(int len)
 {
-	int res;
+	int	res;
 
 	res = 1;
 	len -= 1;
@@ -49,7 +49,7 @@ static int	ft_abs(int num)
 	return (num);
 }
 
-void		ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
 	char	res[12];
 	int		flag;

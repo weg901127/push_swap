@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 04:53:36 by gilee             #+#    #+#             */
-/*   Updated: 2021/01/20 17:36:44 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 20:25:03 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	size_t lens;
-	size_t i;
+	size_t	lens;
+	size_t	i;
 
 	i = 0;
 	lens = ft_strlen(src);

@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 05:47:38 by gilee             #+#    #+#             */
-/*   Updated: 2021/01/22 03:12:52 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 20:38:11 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static size_t	ft_bk(char const *s1, char const *set)
 	return (count);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	unsigned char		*ps1;
 	size_t				reslen;
@@ -66,14 +66,15 @@ char			*ft_strtrim(char const *s1, char const *set)
 	frlen = ft_fr(s1, set);
 	if (reslen == frlen)
 	{
-		if (!(ps1 = (unsigned char *)ft_calloc(1, sizeof(char))))
+		ps1 = (unsigned char *)ft_calloc(1, sizeof(char));
+		if (!ps1)
 			return (NULL);
 		return ((char *)ps1);
 	}
 	bklen = ft_bk(s1 + reslen - 1, set);
 	reslen -= (frlen + bklen);
 	ps1 += frlen;
-	return (char *)ft_substr((char const *)ps1, 0, reslen);
+	return ((char *)ft_substr((char const *)ps1, 0, reslen));
 }
 /*
 ** Parameters----------------------------------------------

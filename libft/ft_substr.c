@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 03:36:47 by gilee             #+#    #+#             */
-/*   Updated: 2020/12/29 04:41:09 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 20:38:55 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (ft_strlen(s) <= start)
 		len = 0;
-	if (!(res = (unsigned char *)ft_calloc(len + 1, sizeof(unsigned char))))
+	res = (unsigned char *)ft_calloc(len + 1, sizeof(unsigned char));
+	if (!res)
 		return (NULL);
 	pres = res;
-	ps = (unsigned char *)(s + start);
+	ps = ((unsigned char *)(s + start));
 	while (len--)
 	{
 		*pres++ = *ps++;
 	}
 	*pres = '\0';
-	return (char *)(res);
+	return ((char *)res);
 }
 /*
 ** Parameters----------------------------------------------

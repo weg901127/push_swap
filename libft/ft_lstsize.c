@@ -6,13 +6,13 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 18:38:35 by gilee             #+#    #+#             */
-/*   Updated: 2021/01/18 18:40:54 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 20:11:57 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_lstsize(t_list *lst)
+int	ft_lstsize(t_list *lst)
 {
 	int			i;
 	t_list		*tmp;

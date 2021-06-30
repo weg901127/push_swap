@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 16:18:35 by gilee             #+#    #+#             */
-/*   Updated: 2021/06/23 18:34:59 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 14:04:15 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,55 +38,17 @@ typedef struct	s_deque
 	t_dnode *head;
 	t_dnode *tail;
 }				t_deque;
-
-void	init_deque(t_deque *deque)
-{
-	deque->head = NULL;
-	deque->tail = NULL;
-}
-
-int		is_empty(t_deque *deque)
-{
-	if (deque->head)
-		return FALSE;
-	else
-		return TRUE;
-}
-
-void free_deque(t_deque *deque)
-{
-	t_dnode *tmp;
-
-	if (!is_empty(deque))
-	{
-		while (deque->head)
-		{
-			tmp = deque->head->next;
-			free(deque->head);
-			deque->head = tmp;
-		}
-	}
-}
-
-void	add_first(t_deque *deque, void *data)
-{
-	t_dnode *newnode;
-
-	newnode = (t_dnode *)ft_calloc(1, sizeof(t_dnode));
-	newnode->content = data;
-	newnode->prev = NULL;
-	if (is_empty(deque))
-	{
-		newnode->next = NULL;
-		deque->head = newnode;
-		deque->tail = newnode;
-	}
-	else
-	{
-		deque->head->prev = newnode;
-		newnode->next = deque->head;
-	}
-	deque->head = newnode;
-}
-
+/* deque_base.c */
+void	init_deque(t_deque *deque);
+int		is_empty(t_deque *deque);
+void 	free_deque(t_deque *deque);
+int		len_deque(t_deque *deque);
+/* deque_calc.c */
+void	add_first(t_deque *deque, void *data);
+void	add_last(t_deque *deque, void *data);
+void	*remove_first(t_deque *deque);
+void	*remove_last(t_deque *deque);
+/* deque_get.c */
+void	*get_first(t_deque *deque);
+void	*get_last(t_deque *deque);
 #endif

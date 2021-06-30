@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 07:12:56 by gilee             #+#    #+#             */
-/*   Updated: 2021/01/02 04:35:03 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 19:56:50 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void *rest;
+	void	*rest;
 
-	if (!(rest = (void *)malloc(count * size)))
+	rest = (void *)malloc(count * size);
+	if (!rest)
 		return (NULL);
 	ft_memset(rest, 0, (count * size));
 	return (rest);

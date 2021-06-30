@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 10:23:32 by gilee             #+#    #+#             */
-/*   Updated: 2021/01/21 03:40:50 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 19:59:21 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_getlen(int n)
 
 static int	ft_ndec(int len)
 {
-	int res;
+	int	res;
 
 	res = 1;
 	len -= 1;
@@ -49,7 +49,7 @@ static int	ft_abs(int num)
 	return (num);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*res;
 	int		flag;
@@ -63,7 +63,8 @@ char		*ft_itoa(int n)
 		flag += 1;
 	}
 	len = ft_getlen(n);
-	if (!(res = (char *)ft_calloc(len + flag + 1, sizeof(char))))
+	res = (char *)ft_calloc(len + flag + 1, sizeof(char));
+	if (!res)
 		return (NULL);
 	if (flag != 0)
 		res[0] = '-';

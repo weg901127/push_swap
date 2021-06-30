@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 04:41:40 by gilee             #+#    #+#             */
-/*   Updated: 2021/01/21 03:41:42 by gilee            ###   ########.fr       */
+/*   Updated: 2021/06/30 19:54:51 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_isspace(int c)
 	return (0);
 }
 
-int			ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	long	nbr;
 	long	sign;
