@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:06:57 by gilee             #+#    #+#             */
-/*   Updated: 2021/07/02 03:19:20 by gilee            ###   ########.fr       */
+/*   Updated: 2021/07/02 03:39:54 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int main(int argc, const char **argv)
 	}
 	init_deque(&vars.stack_b);
 
-	for (int i = 0 ; i < (argc - 1) / 2 ; i++)
+	for (int i = 0 ; i < len_deque(&vars.stack_a) / 2 ; i++)
 		p_stack(&vars.stack_b, &vars.stack_a);
 
 	vars.tmp_a = vars.stack_a.head;
