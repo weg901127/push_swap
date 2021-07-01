@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 17:25:08 by gilee             #+#    #+#             */
-/*   Updated: 2021/06/30 18:20:16 by gilee            ###   ########.fr       */
+/*   Updated: 2021/07/01 19:01:13 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	p_stack(t_deque *stack_a, t_deque *stack_b)
 {
-	void	*content;
-	int		res;
+	int	content;
+	int	res;
 
 	res = FALSE;
 	if (!is_empty(stack_b))

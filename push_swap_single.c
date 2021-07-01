@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 13:50:56 by gilee             #+#    #+#             */
-/*   Updated: 2021/06/30 18:46:39 by gilee            ###   ########.fr       */
+/*   Updated: 2021/07/01 19:01:51 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 int	s_stack(t_deque *stack)
 {
-	void	*tmp;
-	void	*tmp2;
+	int	tmp;
+	int	tmp2;
 	int		res;
 
 	res = FALSE;
@@ -33,8 +33,8 @@ int	s_stack(t_deque *stack)
 
 int	r_stack(t_deque *stack)
 {
-	void	*content;
-	int		res;
+	int	content;
+	int	res;
 
 	res = FALSE;
 	if (len_deque(stack))
@@ -48,8 +48,8 @@ int	r_stack(t_deque *stack)
 
 int	rrx_stack(t_deque *stack)
 {
-	void	*content;
-	int		res;
+	int	content;
+	int	res;
 
 	res = FALSE;
 	if (!is_empty(stack))

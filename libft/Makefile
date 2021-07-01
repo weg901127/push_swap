@@ -22,7 +22,7 @@ STR		= ft_strchr.c ft_strdup.c \
 
 IS		= ft_isalnum.c ft_isalpha.c \
 		  ft_isascii.c ft_isdigit.c \
-		  ft_isprint.c
+		  ft_isprint.c ft_isspace.c
 
 FD		= ft_putnbr_fd.c ft_putstr_fd.c \
 		  ft_putchar_fd.c ft_putendl_fd.c

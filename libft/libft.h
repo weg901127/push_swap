@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 23:25:48 by gilee             #+#    #+#             */
-/*   Updated: 2021/06/30 21:10:10 by gilee            ###   ########.fr       */
+/*   Updated: 2021/07/01 23:26:36 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int				ft_isdigit(int c);
 int				ft_isalnum(int c);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
+int				ft_isspace(int c);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
 int				ft_atoi(const char *str);

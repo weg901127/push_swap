@@ -6,59 +6,127 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:06:57 by gilee             #+#    #+#             */
-/*   Updated: 2021/06/30 18:47:46 by gilee            ###   ########.fr       */
+/*   Updated: 2021/07/02 03:19:20 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "deque.h"
+#include "libft/libft.h"
 #include "push_swap.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-int main()
+void	put_error(void *arg)
 {
-	t_deque deque;
-	t_deque deque2;
-	t_dnode *tmp;
-	t_dnode *tmp2;
+	free(arg);
+	write(1, "Error\n", 6);
+	exit(ERROR);
+}
 
-	init_deque(&deque);
-	add_last(&deque, "a");
-	add_last(&deque, "b");
-	add_last(&deque, "c");
-	add_last(&deque, "d");
-	add_last(&deque, "e");
-	//remove_first(&deque);
-	init_deque(&deque2);
-	//add_last(&deque2, "a");
-	//add_last(&deque2, "b");
-	//add_last(&deque2, "c");
-	//add_last(&deque2, "d");
-	//add_last(&deque2, "e");
+void	validate_argv(const char **argv)
+{
+	int		i;
+	int		j;
+	char	*tmp;
 
-	//s_stack(&deque);
-	//r_stack(&deque);
-	//r_stack(&deque);
-	p_stack(&deque2, &deque);
-	p_stack(&deque2, &deque);
-	//rr_stack(&deque, &deque2);
-	//rrr_stack(&deque, &deque2);
-	//ss_stack(&deque, &deque2);
+	i = 0;
+	j = 0;
+	while (argv[++i])
+	{
+		tmp = ft_strtrim(argv[i], " ");
+		if (!ft_strlen(tmp))
+			put_error(tmp);
+		while (tmp[j])
+		{
+			if (!(ft_isdigit(tmp[j]) || ft_isspace(tmp[j])))
+				put_error(tmp);
+			j++;
+		}
+		j = 0;
+		free(tmp);
+		tmp = NULL;
+	}
+	if (i == 1)
+		put_error(NULL);
+}
+/*
+int	get_pivot(t_init *vars)
+{
+	
+}
+*/
+int	add_last_chkdup(t_init *vars, int content)
+{
+	int		duplicated;
+	t_dnode	*tmp;
 
-	tmp = deque.head;
-	tmp2 = deque2.head;
+	duplicated = 0;
+	tmp = (&vars->stack_a)->head;
 	while (tmp)
 	{
-		printf("%s", tmp->content);
+		if (tmp->content == content)
+			duplicated = 1;
 		tmp = tmp->next;
 	}
-	printf("\n%d", len_deque(&deque));
-	free_deque(&deque);
-	printf("\n");
-	while (tmp2)
+	add_last(&vars->stack_a, content);
+	return (duplicated);
+}
+int	init(const char **argv, int argc, t_init *vars)
+{
+	int		i;
+	int		j;
+	int		duplicated;
+	char 	**tmp;
+
+	i = 1;
+	j = 0;
+	duplicated = 0;
+	init_deque(&vars->stack_a);
+	while (i < argc)
 	{
-		printf("%s", tmp2->content);
-		tmp2 = tmp2->next;
+		tmp = ft_split(argv[i++], ' ');
+		while (tmp[j])
+			duplicated = add_last_chkdup(vars, ft_atoi(tmp[j++]));
+		j = 0;
+		while (tmp[j])
+			free(tmp[j++]);
+		free(tmp);
+		j = 0;
 	}
-	printf("\n%d", len_deque(&deque2));
-	free_deque(&deque2);
+	return (duplicated);
+}
+
+int main(int argc, const char **argv)
+{
+	t_init	vars;
+
+	validate_argv(argv);
+	if (init(argv, argc, &vars))
+	{
+		free_deque(&vars.stack_a);
+		put_error(NULL);
+	}
+	init_deque(&vars.stack_b);
+
+	for (int i = 0 ; i < (argc - 1) / 2 ; i++)
+		p_stack(&vars.stack_b, &vars.stack_a);
+
+	vars.tmp_a = vars.stack_a.head;
+	vars.tmp_b = vars.stack_b.head;
+	while (vars.tmp_a)
+	{
+		printf("%d ", vars.tmp_a->content);
+		vars.tmp_a = vars.tmp_a->next;
+	}
+	printf("\nlen : %d", len_deque(&vars.stack_a));
+	free_deque(&vars.stack_a);
+	printf("\n");
+	while (vars.tmp_b)
+	{
+		printf("%d ", vars.tmp_b->content);
+		vars.tmp_b = vars.tmp_b->next;
+	}
+	printf("\nlen : %d", len_deque(&vars.stack_b));
+	free_deque(&vars.stack_b);
 	return 0;
 }

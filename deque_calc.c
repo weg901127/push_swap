@@ -6,23 +6,21 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 13:10:31 by gilee             #+#    #+#             */
-/*   Updated: 2021/06/30 13:13:42 by gilee            ###   ########.fr       */
+/*   Updated: 2021/07/02 02:45:45 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deque.h"
 
 
-void	add_first(t_deque *deque, void *data)
+void	add_first(t_deque *deque, int data)
 {
 	t_dnode *newnode;
 
 	newnode = (t_dnode *)ft_calloc(1, sizeof(t_dnode));
 	newnode->content = data;
-	newnode->prev = NULL;
 	if (is_empty(deque))
 	{
-		newnode->next = NULL;
 		deque->head = newnode;
 		deque->tail = newnode;
 	}
@@ -34,16 +32,14 @@ void	add_first(t_deque *deque, void *data)
 	deque->head = newnode;
 }
 
-void	add_last(t_deque *deque, void *data)
+void	add_last(t_deque *deque, int data)
 {
 	t_dnode *newnode;
 
 	newnode = (t_dnode *)ft_calloc(1, sizeof(t_dnode));
 	newnode->content = data;
-	newnode->prev = NULL;
 	if (is_empty(deque))
 	{
-		newnode->next = NULL;
 		deque->head = newnode;
 		deque->tail = newnode;
 	}
@@ -55,12 +51,12 @@ void	add_last(t_deque *deque, void *data)
 	deque->tail = newnode;
 }
 
-void	*remove_first(t_deque *deque)
+int	remove_first(t_deque *deque)
 {
 	t_dnode *r_node;
-	void	*r_content;
+	int		r_content;
 
-	r_content = NULL;
+	r_content = ERROR;
 	r_node = deque->head;
 	if (!is_empty(deque))
 	{
@@ -76,12 +72,12 @@ void	*remove_first(t_deque *deque)
 	return (r_content);
 }
 
-void	*remove_last(t_deque *deque)
+int	remove_last(t_deque *deque)
 {
 	t_dnode *r_node;
-	void	*r_content;
+	int		r_content;
 
-	r_content = NULL;
+	r_content = ERROR;
 	r_node = deque->tail;
 	if (!is_empty(deque))
 	{
