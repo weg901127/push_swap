@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:06:57 by gilee             #+#    #+#             */
-/*   Updated: 2021/07/02 03:39:54 by gilee            ###   ########.fr       */
+/*   Updated: 2021/07/02 05:35:38 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	validate_argv(const char **argv)
 			put_error(tmp);
 		while (tmp[j])
 		{
-			if (!(ft_isdigit(tmp[j]) || ft_isspace(tmp[j])))
+			if (!((tmp[j] == '-' && ft_isdigit(tmp[j + 1])) || ft_isdigit(tmp[j]) || ft_isspace(tmp[j])))
 				put_error(tmp);
 			j++;
 		}
@@ -49,12 +49,21 @@ void	validate_argv(const char **argv)
 	if (i == 1)
 		put_error(NULL);
 }
-/*
+
 int	get_pivot(t_init *vars)
 {
-	
+	int		pivot;
+	int		i;
+	t_dnode *tmp;
+
+	i = 1;
+	pivot = len_deque(&vars->stack_a) / 2;
+	tmp = (&vars->stack_a)->head;
+	while (i++ != pivot)
+		tmp = tmp->next;
+	return (tmp->content);
 }
-*/
+
 int	add_last_chkdup(t_init *vars, int content)
 {
 	int		duplicated;
@@ -71,6 +80,7 @@ int	add_last_chkdup(t_init *vars, int content)
 	add_last(&vars->stack_a, content);
 	return (duplicated);
 }
+
 int	init(const char **argv, int argc, t_init *vars)
 {
 	int		i;
@@ -106,6 +116,7 @@ int main(int argc, const char **argv)
 		free_deque(&vars.stack_a);
 		put_error(NULL);
 	}
+	printf("pivot : %d\n", get_pivot(&vars));
 	init_deque(&vars.stack_b);
 
 	for (int i = 0 ; i < len_deque(&vars.stack_a) / 2 ; i++)
