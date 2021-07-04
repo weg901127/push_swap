@@ -15,7 +15,7 @@
 #include "push_swap.h"
 #include <stdio.h>
 #include <stdlib.h>
-
+#define MAX 1000
 void	put_error(void *arg)
 {
 	free(arg);
@@ -50,18 +50,31 @@ void	validate_argv(const char **argv)
 		put_error(NULL);
 }
 
+int len_arr(int arr[])
+{
+	int i;
+
+	i = 0;
+	while (arr[i++])
+		;
+	return (--i);
+}
+
 int	get_pivot(t_init *vars)
 {
-	int		pivot;
-	int		i;
-	t_dnode *tmp;
+	int		dq_len;
+	int		arr[MAX];
+	t_dnode	*tmp;
 
-	i = 1;
-	pivot = len_deque(&vars->stack_a) / 2;
-	tmp = (&vars->stack_a)->head;
-	while (i++ != pivot)
-		tmp = tmp->next;
-	return (tmp->content);
+	dq_len = len_deque(&vars->stack_a);
+	tmp = (&vars->stack_a)->tail;
+	while (dq_len)
+	{
+		arr[--dq_len] = tmp->content;
+		tmp = tmp->prev;
+	}
+	QuickSort(arr, 0, len_arr(arr) - 1);
+	return (arr[(len_arr(arr) - 1) / 2]);
 }
 
 int	add_last_chkdup(t_init *vars, int content)
@@ -108,36 +121,38 @@ int	init(const char **argv, int argc, t_init *vars)
 
 int main(int argc, const char **argv)
 {
-	t_init	vars;
+	t_init	*vars;
 
 	validate_argv(argv);
-	if (init(argv, argc, &vars))
+	vars = (t_init *)malloc(sizeof(t_init));
+	if (init(argv, argc, vars))
 	{
-		free_deque(&vars.stack_a);
+		free_deque(&vars->stack_a);
 		put_error(NULL);
 	}
-	printf("pivot : %d\n", get_pivot(&vars));
-	init_deque(&vars.stack_b);
+	printf("pivot : %d\n", get_pivot(vars));
+	init_deque(&vars->stack_b);
 
-	for (int i = 0 ; i < len_deque(&vars.stack_a) / 2 ; i++)
-		p_stack(&vars.stack_b, &vars.stack_a);
+	for (int i = 0 ; i < len_deque(&vars->stack_a) / 2 ; i++)
+		p_stack(&vars->stack_b, &vars->stack_a);
 
-	vars.tmp_a = vars.stack_a.head;
-	vars.tmp_b = vars.stack_b.head;
-	while (vars.tmp_a)
+	vars->tmp_a = (&vars->stack_a)->head;
+	vars->tmp_b = (&vars->stack_b)->head;
+	while (vars->tmp_a)
 	{
-		printf("%d ", vars.tmp_a->content);
-		vars.tmp_a = vars.tmp_a->next;
+		printf("%d ", vars->tmp_a->content);
+		vars->tmp_a = vars->tmp_a->next;
 	}
-	printf("\nlen : %d", len_deque(&vars.stack_a));
-	free_deque(&vars.stack_a);
+	printf("\nlen : %d", len_deque(&vars->stack_a));
+	free_deque(&vars->stack_a);
 	printf("\n");
-	while (vars.tmp_b)
+	while (vars->tmp_b)
 	{
-		printf("%d ", vars.tmp_b->content);
-		vars.tmp_b = vars.tmp_b->next;
+		printf("%d ", vars->tmp_b->content);
+		vars->tmp_b = vars->tmp_b->next;
 	}
-	printf("\nlen : %d", len_deque(&vars.stack_b));
-	free_deque(&vars.stack_b);
+	printf("\nlen : %d", len_deque(&vars->stack_b));
+	free_deque(&vars->stack_b);
+	free(vars);
 	return 0;
 }

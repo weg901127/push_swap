@@ -30,4 +30,6 @@ int	p_stack(t_deque *stack_a, t_deque *stack_b);
 int	ss_stack(t_deque *stack_a, t_deque *stack_b);
 int	rr_stack(t_deque *stack_a, t_deque *stack_b);
 int	rrr_stack(t_deque *stack_a, t_deque *stack_b);
+/* quicksort.c */
+void QuickSort(int A[], int start, int end);
 #endif
