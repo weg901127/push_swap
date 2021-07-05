@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:06:57 by gilee             #+#    #+#             */
-/*   Updated: 2021/07/02 05:35:38 by gilee            ###   ########.fr       */
+/*   Updated: 2021/07/05 20:34:04 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,53 @@
 #include "push_swap.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #define MAX 1000
+
+int	is_ok(t_init *vars)
+{
+	t_dnode *tmp;
+
+	tmp = (&vars->stack_a)->head;
+	while (tmp->next)
+	{
+		if (tmp->content > tmp->next->content)
+			return (FALSE);
+		tmp = tmp->next;
+	}
+	return (TRUE);
+}
+
+void	put_inst1(int (*func)(t_deque *), t_deque *stack, int is_A)
+{
+	int res;
+
+	res = func(stack) + is_A;
+	if (res == SA)
+		write(1, "sa\n", 3);
+	else if (res == SB)
+		write(1, "sb\n", 3);
+	else if (res == RA)
+		write(1, "ra\n", 3);
+	else if (res == RB)
+		write(1, "rb\n", 3);
+	else if (res == RRA)
+		write(1, "rra\n", 4);
+	else if (res == RRB)
+		write(1, "rrb\n", 4);
+}
+
+void	put_inst2(int (*func)(t_deque *, t_deque *), t_deque *stack_1, t_deque *stack_2, int is_A)
+{
+	int res;
+
+	res = func(stack_1, stack_2) + is_A;
+	if (res == PA)
+		write(1, "pa\n", 3);
+	else
+		write(1, "pb\n", 3);
+}
+
 void	put_error(void *arg)
 {
 	free(arg);
@@ -119,6 +165,33 @@ int	init(const char **argv, int argc, t_init *vars)
 	return (duplicated);
 }
 
+void	a_to_b(int dq_len, t_init *vars)
+{
+	int	pivot;
+	int	ra;
+	int	pb;
+
+	ra = 0;
+	pb = 0;
+	if (dq_len == 2)
+		return ;
+	pivot = get_pivot(vars);
+	while (dq_len--)
+	{
+		if ((&vars->stack_a)->head->content > pivot)
+		{
+			put_inst1(r_stack, &vars->stack_a, TRUE);
+			ra++;
+		}
+		else
+		{
+			put_inst2(p_stack, &vars->stack_b, &vars->stack_a, FALSE);
+			pb++;
+		}
+	}
+	a_to_b(ra, vars);
+}
+
 int main(int argc, const char **argv)
 {
 	t_init	*vars;
@@ -133,25 +206,24 @@ int main(int argc, const char **argv)
 	printf("pivot : %d\n", get_pivot(vars));
 	init_deque(&vars->stack_b);
 
-	for (int i = 0 ; i < len_deque(&vars->stack_a) / 2 ; i++)
-		p_stack(&vars->stack_b, &vars->stack_a);
 
+	a_to_b(len_deque(&vars->stack_a), vars);
 	vars->tmp_a = (&vars->stack_a)->head;
 	vars->tmp_b = (&vars->stack_b)->head;
+	printf("A : ");
 	while (vars->tmp_a)
 	{
 		printf("%d ", vars->tmp_a->content);
 		vars->tmp_a = vars->tmp_a->next;
 	}
-	printf("\nlen : %d", len_deque(&vars->stack_a));
 	free_deque(&vars->stack_a);
 	printf("\n");
+	printf("B : ");
 	while (vars->tmp_b)
 	{
 		printf("%d ", vars->tmp_b->content);
 		vars->tmp_b = vars->tmp_b->next;
 	}
-	printf("\nlen : %d", len_deque(&vars->stack_b));
 	free_deque(&vars->stack_b);
 	free(vars);
 	return 0;

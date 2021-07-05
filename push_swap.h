@@ -6,13 +6,22 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 13:16:55 by gilee             #+#    #+#             */
-/*   Updated: 2021/07/01 19:21:31 by gilee            ###   ########.fr       */
+/*   Updated: 2021/07/05 07:59:21 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include "deque.h"
+
+# define SA 11
+# define SB 10
+# define PA 13
+# define PB 12
+# define RA 15
+# define RB 14
+# define RRA 17
+# define RRB 16
 
 typedef struct	s_init
 {
