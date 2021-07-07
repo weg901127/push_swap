@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:06:57 by gilee             #+#    #+#             */
-/*   Updated: 2021/07/05 20:34:04 by gilee            ###   ########.fr       */
+/*   Updated: 2021/07/07 13:43:29 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ int	init(const char **argv, int argc, t_init *vars)
 	return (duplicated);
 }
 
+void	b_to_a(int dq_len, t_init *vars);
+
 void	a_to_b(int dq_len, t_init *vars)
 {
 	int	pivot;
@@ -173,7 +175,9 @@ void	a_to_b(int dq_len, t_init *vars)
 
 	ra = 0;
 	pb = 0;
-	if (dq_len == 2)
+	if (is_ok(vars))
+		return ;
+	if (dq_len <= 1)
 		return ;
 	pivot = get_pivot(vars);
 	while (dq_len--)
@@ -189,7 +193,56 @@ void	a_to_b(int dq_len, t_init *vars)
 			pb++;
 		}
 	}
+	if (ra)
+	{
+		while (ra--)
+			put_inst1(rrx_stack, &vars->stack_a, TRUE);
+	}
+	vars->tmp_a = (&vars->stack_a)->head;
+	printf("A : ");
+	while (vars->tmp_a)
+	{
+		printf("%d ", vars->tmp_a->content);
+		vars->tmp_a = vars->tmp_a->next;
+	}
 	a_to_b(ra, vars);
+	b_to_a(pb, vars);
+}
+
+void	b_to_a(int dq_len, t_init *vars)
+{
+	int	pivot;
+	int	rb;
+	int	pa;
+
+	rb = 0;
+	pa = 0;
+	if (dq_len == 1)
+	{
+		put_inst2(p_stack, &vars->stack_a, &vars->stack_b, TRUE);
+		return ;
+	}
+	pivot = (&vars->stack_b)->head->content;
+	while (dq_len--)
+	{
+		if ((&vars->stack_b)->head->content > pivot)
+		{
+			put_inst1(r_stack, &vars->stack_b, FALSE);
+			rb++;
+		}
+		else
+		{
+			put_inst2(p_stack, &vars->stack_a, &vars->stack_b, TRUE);
+			pa++;
+		}
+	}
+	if (rb)
+	{
+		while (rb--)
+			put_inst1(rrx_stack, &vars->stack_b, FALSE);
+	}
+	a_to_b(pa, vars);
+	b_to_a(rb, vars);
 }
 
 int main(int argc, const char **argv)
