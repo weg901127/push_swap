@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 17:25:08 by gilee             #+#    #+#             */
-/*   Updated: 2021/07/05 08:01:07 by gilee            ###   ########.fr       */
+/*   Updated: 2021/07/07 19:41:19 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	p_stack(t_deque *stack_a, t_deque *stack_b)
 	{
 		content = remove_first(stack_b);
 		add_first(stack_a, content);
-		res = PB;
+		res = TRUE;
 	}
 	return (res);
 }

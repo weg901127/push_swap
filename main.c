@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:06:57 by gilee             #+#    #+#             */
-/*   Updated: 2021/07/07 13:43:29 by gilee            ###   ########.fr       */
+/*   Updated: 2021/07/07 22:12:55 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	put_inst2(int (*func)(t_deque *, t_deque *), t_deque *stack_1, t_deque *sta
 {
 	int res;
 
-	res = func(stack_1, stack_2) + is_A;
-	if (res == PA)
+	func(stack_1, stack_2);
+	if (is_A)
 		write(1, "pa\n", 3);
 	else
 		write(1, "pb\n", 3);
@@ -170,7 +170,7 @@ void	b_to_a(int dq_len, t_init *vars);
 void	a_to_b(int dq_len, t_init *vars)
 {
 	int	pivot;
-	int	ra;
+	int	ra, ra_tmp;
 	int	pb;
 
 	ra = 0;
@@ -193,19 +193,21 @@ void	a_to_b(int dq_len, t_init *vars)
 			pb++;
 		}
 	}
-	if (ra)
+	ra_tmp = ra;
+	while (ra--)
 	{
-		while (ra--)
-			put_inst1(rrx_stack, &vars->stack_a, TRUE);
+		printf("ra:%d", ra);
+		put_inst1(rrx_stack, &vars->stack_a, TRUE);
 	}
+	printf("ra:%d", ra);
 	vars->tmp_a = (&vars->stack_a)->head;
-	printf("A : ");
+	printf("A to B: ");
 	while (vars->tmp_a)
 	{
 		printf("%d ", vars->tmp_a->content);
 		vars->tmp_a = vars->tmp_a->next;
 	}
-	a_to_b(ra, vars);
+	a_to_b(ra_tmp, vars);
 	b_to_a(pb, vars);
 }
 
@@ -240,6 +242,13 @@ void	b_to_a(int dq_len, t_init *vars)
 	{
 		while (rb--)
 			put_inst1(rrx_stack, &vars->stack_b, FALSE);
+	}
+	vars->tmp_b = (&vars->stack_b)->head;
+	printf("B to A: ");
+	while (vars->tmp_b)
+	{
+		printf("%d ", vars->tmp_b->content);
+		vars->tmp_b = vars->tmp_b->next;
 	}
 	a_to_b(pa, vars);
 	b_to_a(rb, vars);
