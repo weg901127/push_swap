@@ -30,7 +30,6 @@ static int	Partition(int A[], int start, int end)
 void	QuickSort(int A[], int start, int end)
 {
 	int	index;
-	int	i;
 
 	if (start < end)
 	{

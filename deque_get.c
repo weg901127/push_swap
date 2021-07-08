@@ -29,3 +29,29 @@ int	get_last(t_deque *deque)
 		content = deque->tail->content;
 	return (content);
 }
+
+t_dnode	*get_node(t_deque *deque, int *content, int *index)
+{
+	t_dnode	*tmp;
+
+	tmp = deque->head;
+	if (content)
+	{
+		while (tmp)
+		{
+			if (tmp->content == *content)
+				return (tmp);
+			tmp = tmp->next;
+		}
+	}
+	else
+	{
+		while (tmp)
+		{
+			if (tmp->index == *index)
+				return (tmp);
+			tmp = tmp->next;
+		}
+	}
+	return (NULL);
+}

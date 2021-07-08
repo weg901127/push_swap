@@ -38,6 +38,8 @@ void	free_deque(t_deque *deque)
 			free(deque->head);
 			deque->head = tmp;
 		}
+		tmp = NULL;
+		deque->head = NULL;
 	}
 }
 

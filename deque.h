@@ -29,6 +29,7 @@
 typedef struct	s_dnode
 {
 	int				content;
+	int				index;
 	struct s_dnode	*prev;
 	struct s_dnode	*next;
 }				t_dnode;
@@ -51,4 +52,5 @@ int	remove_last(t_deque *deque);
 /* deque_get.c */
 int	get_first(t_deque *deque);
 int	get_last(t_deque *deque);
+t_dnode	*get_node(t_deque *deque, int *content, int *index);
 #endif
