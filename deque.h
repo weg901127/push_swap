@@ -36,8 +36,9 @@ typedef struct	s_dnode
 
 typedef struct	s_deque
 {
-	t_dnode *head;
-	t_dnode *tail;
+	t_dnode			*head;
+	t_dnode			*tail;
+	unsigned int	size;
 }				t_deque;
 /* deque_base.c */
 void	init_deque(t_deque *deque);

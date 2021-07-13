@@ -30,6 +30,7 @@ void	add_first(t_deque *deque, int data)
 		newnode->next = deque->head;
 	}
 	deque->head = newnode;
+	(deque->size)++;
 }
 
 void	add_last(t_deque *deque, int data)
@@ -49,6 +50,7 @@ void	add_last(t_deque *deque, int data)
 		newnode->prev = deque->tail;
 	}
 	deque->tail = newnode;
+	(deque->size)++;
 }
 
 int	remove_first(t_deque *deque)
@@ -69,6 +71,7 @@ int	remove_first(t_deque *deque)
 		else
 			deque->head->prev = NULL;	
 	}
+	(deque->size)--;
 	return (r_content);
 }
 
@@ -90,5 +93,6 @@ int	remove_last(t_deque *deque)
 		else
 			deque->tail->next = NULL;	
 	}
+	(deque->size)--;
 	return (r_content);
 }

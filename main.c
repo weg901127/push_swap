@@ -187,75 +187,105 @@ int	init(const char **argv, int argc, t_init *vars)
 	return (duplicated);
 }
 
+int	get_min(int len, t_dnode *tmp)
+{
+	int	min;
+
+	min = tmp->content;
+	while (len--)
+	{
+		if (tmp->content < min)
+			min = tmp->content;
+		tmp = tmp->next;
+	}
+	return (min);
+}
+
+void	sort(int dq_len, t_init *vars)
+{
+	t_dnode	*tmp;
+	int		len;
+	int		min;
+	int     ra;
+
+	ra = 0;
+	len = dq_len;
+	tmp = (&vars->stack_a)->head;
+	if (dq_len <= 2)
+	{
+		if (dq_len == 2 && tmp->content > tmp->next->content)
+			put_inst1(s_stack, &vars->stack_a, TRUE);
+		return ;
+	}
+	min = get_min(len, (&vars->stack_a)->head);
+	while (len--)
+	{
+		if ((&vars->stack_a)->head->content == min)
+			put_inst2(p_stack, &vars->stack_b, &vars->stack_a, FALSE);
+		else
+		{
+			put_inst1(r_stack, &vars->stack_a, TRUE);
+			ra++;
+		}
+	}
+	while (ra--)
+		put_inst1(rrx_stack, &vars->stack_a, TRUE);
+	sort(2, vars);
+	put_inst2(p_stack, &vars->stack_a, &vars->stack_b, TRUE);
+}
 void	b_to_a(int dq_len, t_init *vars);
 
 void	a_to_b(int dq_len, t_init *vars)
 {
 	int	pivot;
-	int	ra, ra_tmp;
-	int	pb;
+	int	len;
+	int	ra;
 
 	ra = 0;
-	pb = 0;
-	if (dq_len <= 1)
-		return ;
-	if (is_ok(vars))
-		return ;
-	pivot = get_pivot(vars);
-	while (dq_len--)
+	len = dq_len;
+	if (dq_len <= 3)
 	{
-		if ((&vars->stack_a)->head->content > pivot)
+		sort(dq_len, vars);
+		return ;
+	}
+	pivot = (&vars->stack_a)->head->content;
+	while (len--)
+	{
+		if ((&vars->stack_a)->head->content < pivot)
 		{
 			put_inst1(r_stack, &vars->stack_a, TRUE);
 			ra++;
 		}
 		else
-		{
 			put_inst2(p_stack, &vars->stack_b, &vars->stack_a, FALSE);
-			pb++;
-		}
 	}
-	ra_tmp = ra;
-	while (ra--)
-		put_inst1(rrx_stack, &vars->stack_a, TRUE);
-	a_to_b(ra_tmp, vars);
-	b_to_a(pb, vars);
+	a_to_b(ra, vars);
+	b_to_a(dq_len - ra, vars);
 }
 
 void	b_to_a(int dq_len, t_init *vars)
 {
 	int	pivot;
-	int	rb, rb_tmp;
-	int	pa;
+	int	len;
+	int	rb;
 
 	rb = 0;
-	pa = 0;
-	if (!dq_len)
+	len = dq_len;
+	if (dq_len == 0)
 		return ;
-	if (dq_len == 1)
-	{
-		put_inst2(p_stack, &vars->stack_a, &vars->stack_b, TRUE);
-		return ;
-	}
 	pivot = (&vars->stack_b)->head->content;
-	while (dq_len--)
+	while (len--)
 	{
-		if ((&vars->stack_b)->head->content > pivot)
+		if ((&vars->stack_b)->head->content < pivot)
 		{
 			put_inst1(r_stack, &vars->stack_b, FALSE);
 			rb++;
 		}
 		else
-		{
 			put_inst2(p_stack, &vars->stack_a, &vars->stack_b, TRUE);
-			pa++;
-		}
 	}
-	rb_tmp = rb;
-	while (rb--)
-		put_inst1(rrx_stack, &vars->stack_b, FALSE);
-	a_to_b(pa, vars);
-	b_to_a(rb_tmp, vars);
+	a_to_b(dq_len - rb, vars);
+	b_to_a(rb, vars);
 }
 
 int main(int argc, const char **argv)
@@ -273,7 +303,6 @@ int main(int argc, const char **argv)
 	printf("pivot : %d\n", get_pivot(vars));
 	init_deque(&vars->stack_b);
 
-
 	a_to_b(len_deque(&vars->stack_a), vars);
 	vars->tmp_a = (&vars->stack_a)->head;
 	vars->tmp_b = (&vars->stack_b)->head;
@@ -283,16 +312,17 @@ int main(int argc, const char **argv)
 		printf("%d(%d) ", vars->tmp_a->content, vars->tmp_a->index);
 		vars->tmp_a = vars->tmp_a->next;
 	}
+	printf("size:%d", vars->stack_a.size);
 	free_deque(&vars->stack_a);
-	/*
+	
 	printf("\n");
 	printf("B : ");
 	while (vars->tmp_b)
 	{
-		printf("%d ", vars->tmp_b->content);
+		printf("%d(%d) ", vars->tmp_b->content, vars->tmp_b->index);
 		vars->tmp_b = vars->tmp_b->next;
 	}
-	*/
+	
 	free_deque(&vars->stack_b);
 	free(vars);
 	return 0;

@@ -44,7 +44,7 @@ t_dnode	*get_node(t_deque *deque, int *content, int *index)
 			tmp = tmp->next;
 		}
 	}
-	else
+	else if (index)
 	{
 		while (tmp)
 		{

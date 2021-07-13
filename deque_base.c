@@ -16,6 +16,7 @@ void	init_deque(t_deque *deque)
 {
 	deque->head = NULL;
 	deque->tail = NULL;
+	deque->size = 0;
 }
 
 int		is_empty(t_deque *deque)
