@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-static int	Partition(int A[], int start, int end)
+static int	partition(int A[], int start, int end)
 {
 	int	pivot;
 	int	i;
@@ -27,15 +27,15 @@ static int	Partition(int A[], int start, int end)
 	return (index);
 }
 
-void	QuickSort(int A[], int start, int end)
+void	quicksort(int A[], int start, int end)
 {
 	int	index;
 
 	if (start < end)
 	{
-		index = Partition(A, start, end);
-		QuickSort(A, start, index - 1);
-		QuickSort(A, index + 1, end);
+		index = partition(A, start, end);
+		quicksort(A, start, index - 1);
+		quicksort(A, index + 1, end);
 	}
 	else
 		return ;

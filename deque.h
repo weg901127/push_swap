@@ -30,6 +30,7 @@ typedef struct	s_dnode
 {
 	int				content;
 	int				index;
+	int				chunk;
 	struct s_dnode	*prev;
 	struct s_dnode	*next;
 }				t_dnode;
@@ -41,9 +42,9 @@ typedef struct	s_deque
 	unsigned int	size;
 }				t_deque;
 /* deque_base.c */
-void	init_deque(t_deque *deque);
+void	init_deque(t_deque **deque);
 int	is_empty(t_deque *deque);
-void 	free_deque(t_deque *deque);
+void 	free_deque(t_deque **deque);
 int	len_deque(t_deque *deque);
 /* deque_calc.c */
 void	add_first(t_deque *deque, int data);

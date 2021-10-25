@@ -14,23 +14,24 @@
 
 int	s_stack(t_deque *stack)
 {
-	int	tmp;
-	int	tmp2;
-	int tmp3;
-	int tmp4;
+	int	tmp[6];
 	int	res;
 
 	res = FALSE;
 	if (len_deque(stack) > 1)
 	{
-		tmp3 = stack->head->index;
-		tmp = remove_first(stack);
-		tmp4 = stack->head->index;
-		tmp2 = remove_first(stack);
-		add_first(stack, tmp);
-		stack->head->index = tmp3;
-		add_first(stack, tmp2);
-		stack->head->index = tmp4;
+		tmp[2] = stack->head->index;
+		tmp[4] = stack->head->chunk;
+		tmp[0] = remove_first(stack);
+		tmp[3] = stack->head->index;
+		tmp[5] = stack->head->chunk;
+		tmp[1] = remove_first(stack);
+		add_first(stack, tmp[0]);
+		stack->head->index = tmp[2];
+		stack->head->chunk = tmp[4];
+		add_first(stack, tmp[1]);
+		stack->head->index = tmp[3];
+		stack->head->chunk = tmp[5];
 		res = SB;
 	}
 	return (res);
@@ -38,17 +39,18 @@ int	s_stack(t_deque *stack)
 
 int	r_stack(t_deque *stack)
 {
-	int	content;
-	int	index;
+	int tmp[3];
 	int	res;
 
 	res = FALSE;
 	if (len_deque(stack))
 	{
-		index = stack->head->index;
-		content = remove_first(stack);
-		add_last(stack, content);
-		stack->tail->index = index;
+		tmp[0] = stack->head->index;
+		tmp[1] = stack->head->chunk;
+		tmp[2] = remove_first(stack);
+		add_last(stack, tmp[2]);
+		stack->tail->index = tmp[0];
+		stack->tail->chunk = tmp[1];
 		res = RB;
 	}
 	return (res);
@@ -56,17 +58,18 @@ int	r_stack(t_deque *stack)
 
 int	rrx_stack(t_deque *stack)
 {
-	int	content;
-	int	index;
+	int tmp[3];
 	int	res;
 
 	res = FALSE;
 	if (!is_empty(stack))
 	{
-		index = stack->tail->index;
-		content = remove_last(stack);
-		add_first(stack, content);
-		stack->head->index = index;
+		tmp[0] = stack->tail->index;
+		tmp[1] = stack->tail->chunk;
+		tmp[2] = remove_last(stack);
+		add_first(stack, tmp[2]);
+		stack->head->index = tmp[0];
+		stack->head->chunk = tmp[1];
 		res = RRB;
 	}
 	return (res);

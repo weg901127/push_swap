@@ -25,8 +25,8 @@
 
 typedef struct	s_init
 {
-	t_deque	stack_a;
-	t_deque	stack_b;
+	t_deque	*stack_a;
+	t_deque	*stack_b;
 	t_dnode	*tmp_a;
 	t_dnode	*tmp_b;
 }				t_init;
@@ -39,6 +39,13 @@ int	p_stack(t_deque *stack_a, t_deque *stack_b);
 int	ss_stack(t_deque *stack_a, t_deque *stack_b);
 int	rr_stack(t_deque *stack_a, t_deque *stack_b);
 int	rrr_stack(t_deque *stack_a, t_deque *stack_b);
+/* push_swap_inst.c */
+void	put_inst1(int (*func)(t_deque *), t_deque *stack, int is_A);
+void	put_inst2(int (*func)(t_deque *, t_deque *), t_deque *stack_1, t_deque *stack_2, int is_A);
+/* push_swap_sort.c */
+void sort_three(t_init *vars);
+void sort_five(t_init *vars);
+void sort_by_index(t_init *vars);
 /* quicksort.c */
-void QuickSort(int A[], int start, int end);
+void quicksort(int A[], int start, int end);
 #endif

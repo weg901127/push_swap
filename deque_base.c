@@ -12,11 +12,12 @@
 
 #include "deque.h"
 
-void	init_deque(t_deque *deque)
+void	init_deque(t_deque **deque)
 {
-	deque->head = NULL;
-	deque->tail = NULL;
-	deque->size = 0;
+	*deque = (t_deque *)malloc(sizeof(t_deque));
+	(*deque)->head = NULL;
+	(*deque)->tail = NULL;
+	(*deque)->size = 0;
 }
 
 int		is_empty(t_deque *deque)
@@ -27,21 +28,22 @@ int		is_empty(t_deque *deque)
 		return TRUE;
 }
 
-void	free_deque(t_deque *deque)
+void	free_deque(t_deque **deque)
 {
 	t_dnode *tmp;
 
-	if (!is_empty(deque))
+	if (!is_empty(*deque))
 	{
-		while (deque->head)
+		while ((*deque)->head)
 		{
-			tmp = deque->head->next;
-			free(deque->head);
-			deque->head = tmp;
+			tmp = (*deque)->head->next;
+			free((*deque)->head);
+			(*deque)->head = tmp;
 		}
 		tmp = NULL;
-		deque->head = NULL;
+		(*deque)->head = NULL;
 	}
+	free(*deque);
 }
 
 int		len_deque(t_deque *deque)
