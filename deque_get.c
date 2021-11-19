@@ -15,7 +15,8 @@
 int	get_first(t_deque *deque)
 {
 	int	content;
-
+	
+	content = 0;
 	if (!is_empty(deque))
 		content = deque->head->content;
 	return (content);
@@ -25,6 +26,7 @@ int	get_last(t_deque *deque)
 {
 	int	content;
 
+	content = 0;
 	if (!is_empty(deque))
 		content = deque->tail->content;
 	return (content);

@@ -14,8 +14,6 @@
 
 int	p_stack(t_deque *stack_a, t_deque *stack_b)
 {
-	int	content;
-	int	index;
 	int tmp[3];
 	int	res;
 

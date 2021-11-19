@@ -21,8 +21,6 @@ void	put_inst1(int (*func)(t_deque *), t_deque *stack, int is_A)
 
 void	put_inst2(int (*func)(t_deque *, t_deque *), t_deque *stack_1, t_deque *stack_2, int is_A)
 {
-	int res;
-
 	func(stack_1, stack_2);
 	if (is_A)
 		write(1, "pa\n", 3);

@@ -62,10 +62,20 @@ void sort_three(t_init *vars)
 		tmp[2] = vars->stack_a->head->next->next->index;
 		if (tmp[2] > tmp[0] && tmp[0] > tmp[1] && tmp[2] > tmp[0])
 			put_inst1(s_stack, vars->stack_a, TRUE);
-		if (tmp[0] > tmp[2] && tmp[2] > tmp[1] && tmp[0] > tmp[1])
+		else if (tmp[0] > tmp[2] && tmp[2] > tmp[1] && tmp[0] > tmp[1])
 			put_inst1(r_stack, vars->stack_a, TRUE);
+		else if (tmp[0] > tmp[2] && tmp[2] < tmp[1] && tmp[0] > tmp[1])
+		{
+			put_inst1(r_stack, vars->stack_a, TRUE);
+			put_inst1(s_stack, vars->stack_a, TRUE);
+		}
 		else if (tmp[1] > tmp[0] && tmp[0] > tmp[2] && tmp[1] > tmp[2])
 			put_inst1(rrx_stack, vars->stack_a, TRUE);
+		else if (tmp[1] > tmp[0] && tmp[0] < tmp[2] && tmp[1] > tmp[2])
+		{
+			put_inst1(rrx_stack, vars->stack_a, TRUE);
+			put_inst1(s_stack, vars->stack_a, TRUE);
+		}
 	}
 	else
 		if (tmp[0] > tmp[1])
