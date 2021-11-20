@@ -22,7 +22,7 @@ void	init_deque(t_deque **deque)
 
 int		is_empty(t_deque *deque)
 {
-	if (deque->head)
+	if (deque->size)
 		return FALSE;
 	else
 		return TRUE;

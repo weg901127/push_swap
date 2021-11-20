@@ -43,7 +43,8 @@ int	rrr_stack(t_deque *stack_a, t_deque *stack_b);
 void	put_inst1(int (*func)(t_deque *), t_deque *stack, int is_A);
 void	put_inst2(int (*func)(t_deque *, t_deque *), t_deque *stack_1, t_deque *stack_2, int is_A);
 /* push_swap_sort.c */
-void sort_three(t_init *vars);
+void	sort_two(t_deque *stack);
+void sort_three(t_deque *stack, int is_A);
 void sort_five(t_init *vars);
 void sort_by_index(t_init *vars);
 /* quicksort.c */

@@ -18,8 +18,8 @@ int	p_stack(t_deque *stack_a, t_deque *stack_b)
 	int	res;
 
 	res = FALSE;
-	if (!is_empty(stack_b))
-	{
+	//if (!is_empty(stack_b))
+	//{
 		tmp[0] = stack_b->head->index;
 		tmp[1] = stack_b->head->chunk;
 		tmp[2] = remove_first(stack_b);
@@ -27,7 +27,7 @@ int	p_stack(t_deque *stack_a, t_deque *stack_b)
 		stack_a->head->index = tmp[0];
 		stack_a->head->chunk = tmp[1];
 		res = TRUE;
-	}
+	//}
 	return (res);
 }
 

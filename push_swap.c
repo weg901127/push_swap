@@ -77,39 +77,28 @@ int len_arr(int arr[])
 	return (--i);
 }
 
-int	get_pivot(t_init *vars)
-{
-	int		dq_len;
-	int		pivot;
-	t_dnode	*tmp;
-
-	dq_len = len_deque(vars->stack_a);
-	tmp = (vars->stack_a)->head;
-	pivot = (1 + dq_len) / 2;
-	return (get_node(vars->stack_a, NULL, &pivot)->content);
-}
-
-void	set_index(t_init *vars, int dq_len)
+void	set_index(t_deque *stack, int dq_len)
 {
 	int		arr[dq_len];
 	int		i;
+	int		tmp_len;
 	t_dnode	*tmp;
 
-	tmp = (vars->stack_a)->tail;
-	while (dq_len)
+	if (!dq_len)
+		return ;
+	tmp = stack->tail;
+	tmp_len = dq_len;
+	while (tmp_len)
 	{
-		arr[--dq_len] = tmp->content;
+		arr[--tmp_len] = tmp->content;
 		tmp = tmp->prev;
 	}
-	//printf("dq_len:(%d) ",len_deque(vars->stack_a));
-	quicksort(arr, 0, len_deque(vars->stack_a) - 1);
-	//for (int i = 0; i < len_deque(vars->stack_a); i++)
-	//	printf("%d ",arr[i]);
+	tmp_len = dq_len;
+	quicksort(arr, 0, tmp_len - 1);
 	i = 0;
-	dq_len = len_deque(vars->stack_a);
-	while (dq_len--)
+	while (tmp_len--)
 	{
-		get_node(vars->stack_a, &arr[i], NULL)->index = i;
+		get_node(stack, &arr[i], NULL)->index = i;
 		i++;
 	}
 }
@@ -188,117 +177,129 @@ int	get_min(int len, t_dnode *tmp)
 	return (min);
 }
 
-void	sort(int dq_len, t_init *vars)
+void	rrx_n(int n, t_deque *stack, int is_A)
 {
-	t_dnode	*tmp;
-	int		len;
-	int		min;
-	int     ra;
-
-	ra = 0;
-	len = dq_len;
-	tmp = (vars->stack_a)->head;
-	if (dq_len <= 2)
-	{
-		if (dq_len == 2 && tmp->content > tmp->next->content)
-			put_inst1(s_stack, vars->stack_a, TRUE);
-		return ;
-	}
-	min = get_min(len, (vars->stack_a)->head);
-	while (len--)
-	{
-		if ((vars->stack_a)->head->content == min)
-			put_inst2(p_stack, vars->stack_b, vars->stack_a, FALSE);
-		else
-		{
-			put_inst1(r_stack, vars->stack_a, TRUE);
-			ra++;
-		}
-	}
-	while (ra--)
-		put_inst1(rrx_stack, vars->stack_a, TRUE);
-	sort(2, vars);
-	put_inst2(p_stack, vars->stack_a, vars->stack_b, TRUE);
+	while (n--)
+		put_inst1(rrx_stack, stack, is_A);
 }
 
+int		get_pivot(t_deque *stack, int dq_len)
+{
+	t_dnode	*tmp;
+
+	if (!dq_len)
+		return 0;
+	dq_len = dq_len / 2;
+	tmp = stack->head;
+	while (dq_len--)
+		tmp = tmp->next;
+	return (tmp->content);
+}
 void	b_to_a(int dq_len, t_init *vars);
 
 void	a_to_b(int dq_len, t_init *vars)
 {
 	int	pivot;
-	int	len;
 	int	ra;
+	int	pb;
 
 	ra = 0;
-	len = dq_len;
-	if (dq_len <= 3)
-	{
-		sort(dq_len, vars);
+	pb = 0;
+	if (dq_len == 1 || dq_len == 0)
 		return ;
-	}
-	pivot = (vars->stack_a)->head->content;
-	while (len--)
+	else if (dq_len == 2)
+		sort_two(vars->stack_a);
+	set_index(vars->stack_a, dq_len);
+	pivot = get_pivot(vars->stack_a, dq_len);
+	while (dq_len--)
 	{
-		if ((vars->stack_a)->head->content < pivot)
+		if (vars->stack_a->head->content > pivot)
 		{
 			put_inst1(r_stack, vars->stack_a, TRUE);
-			ra++;
+			++ra;
 		}
 		else
+		{
 			put_inst2(p_stack, vars->stack_b, vars->stack_a, FALSE);
+			++pb;
+		}
 	}
+	t_dnode *tmp = vars->stack_a->head;
+	for (unsigned int i = 0 ; i < vars->stack_a->size ; i++)
+	{
+		printf("|%d|\n", tmp->content);
+		tmp = tmp->next;
+	}
+	rrx_n(ra, vars->stack_a, TRUE);
 	a_to_b(ra, vars);
-	b_to_a(dq_len - ra, vars);
+	b_to_a(pb, vars);
 }
 
 void	b_to_a(int dq_len, t_init *vars)
 {
 	int	pivot;
-	int	len;
 	int	rb;
+	int	pa;
 
 	rb = 0;
-	len = dq_len;
+	pa = 0;
+	if (dq_len == 1)
+	{
+		put_inst2(p_stack , vars->stack_a, vars->stack_b, TRUE);
+		--dq_len;
+	}
 	if (dq_len == 0)
 		return ;
-	pivot = (vars->stack_b)->head->content;
-	while (len--)
+	set_index(vars->stack_b, dq_len);
+	pivot = get_pivot(vars->stack_b, dq_len);
+	while(dq_len--)
 	{
-		if ((vars->stack_b)->head->content < pivot)
+		if (vars->stack_b->head->content < pivot)
 		{
 			put_inst1(r_stack, vars->stack_b, FALSE);
-			rb++;
+			++rb;
 		}
 		else
+		{
 			put_inst2(p_stack, vars->stack_a, vars->stack_b, TRUE);
+			++pa;
+		}
 	}
-	a_to_b(dq_len - rb, vars);
+	t_dnode *tmp = vars->stack_b->head;
+	for (unsigned int i = 0 ; i < vars->stack_b->size ; i++)
+	{
+		printf("|%d|\n", tmp->content);
+		tmp = tmp->next;
+	}
+	rrx_n(rb, vars->stack_b, FALSE);
+	a_to_b(pa, vars);
 	b_to_a(rb, vars);
 }
 
 int main(int argc, const char **argv)
 {
-	t_init	vars;
+	t_init	*vars;
 
+	vars = malloc(sizeof(t_init *));
 	validate_argv(argv);
-	if (init(argv, argc, &vars))
+	if (init(argv, argc, vars))
 	{
-		free_deque(&vars.stack_a);
+		free_deque(&vars->stack_a);
 		put_error(NULL);
 	}
-	set_index(&vars, vars.stack_a->size);
-	set_chunk(&vars);
-	init_deque(&vars.stack_b);
+	set_index(vars->stack_a, vars->stack_a->size);
+	set_chunk(vars);
+	init_deque(&vars->stack_b);
 	
 	//sort_three(&vars);
-	if (vars.stack_a->size < 4)
-		sort_three(&vars);
-	else if (vars.stack_a->size > 3 && vars.stack_a->size < 6)
-		sort_five(&vars);
+	if (vars->stack_a->size < 4)
+		sort_three(vars->stack_a, TRUE);
+	else if (vars->stack_a->size > 3 && vars->stack_a->size < 6)
+		sort_five(vars);
 	else
-		sort_by_index(&vars);
-	vars.tmp_a = (vars.stack_a)->head;
-	vars.tmp_b = (vars.stack_b)->head;
+		a_to_b(vars->stack_a->size, vars);
+	//vars.tmp_a = (vars.stack_a)->head;
+	//vars.tmp_b = (vars.stack_b)->head;
 /*	
 	printf("A : ");
 	while (vars.tmp_a)
@@ -308,7 +309,7 @@ int main(int argc, const char **argv)
 	}
 	printf("size:%d", vars.stack_a->size);
 */	
-	free_deque(&vars.stack_a);
+	free_deque(&vars->stack_a);
 /*		
 	printf("\n");
 	printf("B : ");
@@ -318,6 +319,6 @@ int main(int argc, const char **argv)
 		vars.tmp_b = vars.tmp_b->next;
 	}
 */	
-	free_deque(&vars.stack_b);
+	free_deque(&vars->stack_b);
 	return 0;
 }
