@@ -53,46 +53,46 @@ void	add_last(t_deque *deque, int data)
 	(deque->size)++;
 }
 
-int	remove_first(t_deque *deque)
+int	remove_first(t_deque **deque)
 {
 	t_dnode *r_node;
 	int		r_content;
 
 	r_content = ERROR;
-	r_node = deque->head;
-	if (!is_empty(deque))
+	r_node = (*deque)->head;
+	if (!is_empty(*deque))
 	{
-		r_content = deque->head->content;
-		deque->head = deque->head->next;
+		r_content = (*deque)->head->content;
+		(*deque)->head = (*deque)->head->next;
 		free(r_node);
 		r_node = NULL;
-		if (deque->head == NULL)
-			deque->tail = NULL;
+		if ((*deque)->head == NULL)
+			(*deque)->tail = NULL;
 		else
-			deque->head->prev = NULL;	
+			(*deque)->head->prev = NULL;	
 	}
-	(deque->size)--;
+	((*deque)->size)--;
 	return (r_content);
 }
 
-int	remove_last(t_deque *deque)
+int	remove_last(t_deque **deque)
 {
 	t_dnode *r_node;
 	int		r_content;
 
 	r_content = ERROR;
-	r_node = deque->tail;
-	if (!is_empty(deque))
+	r_node = (*deque)->tail;
+	if (!is_empty(*deque))
 	{
-		r_content = deque->tail->content;
-		deque->tail = deque->tail->prev;
+		r_content = (*deque)->tail->content;
+		(*deque)->tail = (*deque)->tail->prev;
 		free(r_node);
 		r_node = NULL;
-		if (deque->tail == NULL)
-			deque->head = NULL;
+		if ((*deque)->tail == NULL)
+			(*deque)->head = NULL;
 		else
-			deque->tail->next = NULL;	
+			(*deque)->tail->next = NULL;	
 	}
-	(deque->size)--;
+	((*deque)->size)--;
 	return (r_content);
 }

@@ -104,6 +104,6 @@ void	sort_two(t_deque *stack)
 
 	tmp[0] = stack->head->content;
 	tmp[1] = stack->head->next->content;
-	if (tmp[0] < tmp[1])
+	if (tmp[0] > tmp[1])
 		put_inst1(s_stack, stack, TRUE);
 }

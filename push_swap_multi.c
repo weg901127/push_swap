@@ -22,7 +22,7 @@ int	p_stack(t_deque *stack_a, t_deque *stack_b)
 	//{
 		tmp[0] = stack_b->head->index;
 		tmp[1] = stack_b->head->chunk;
-		tmp[2] = remove_first(stack_b);
+		tmp[2] = remove_first(&stack_b);
 		add_first(stack_a, tmp[2]);
 		stack_a->head->index = tmp[0];
 		stack_a->head->chunk = tmp[1];

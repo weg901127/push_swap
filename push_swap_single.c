@@ -22,10 +22,10 @@ int	s_stack(t_deque *stack)
 	{
 		tmp[2] = stack->head->index;
 		tmp[4] = stack->head->chunk;
-		tmp[0] = remove_first(stack);
+		tmp[0] = remove_first(&stack);
 		tmp[3] = stack->head->index;
 		tmp[5] = stack->head->chunk;
-		tmp[1] = remove_first(stack);
+		tmp[1] = remove_first(&stack);
 		add_first(stack, tmp[0]);
 		stack->head->index = tmp[2];
 		stack->head->chunk = tmp[4];
@@ -47,7 +47,7 @@ int	r_stack(t_deque *stack)
 	{
 		tmp[0] = stack->head->index;
 		tmp[1] = stack->head->chunk;
-		tmp[2] = remove_first(stack);
+		tmp[2] = remove_first(&stack);
 		add_last(stack, tmp[2]);
 		stack->tail->index = tmp[0];
 		stack->tail->chunk = tmp[1];
@@ -66,7 +66,7 @@ int	rrx_stack(t_deque *stack)
 	{
 		tmp[0] = stack->tail->index;
 		tmp[1] = stack->tail->chunk;
-		tmp[2] = remove_last(stack);
+		tmp[2] = remove_last(&stack);
 		add_first(stack, tmp[2]);
 		stack->head->index = tmp[0];
 		stack->head->chunk = tmp[1];

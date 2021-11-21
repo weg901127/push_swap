@@ -49,8 +49,8 @@ int	len_deque(t_deque *deque);
 /* deque_calc.c */
 void	add_first(t_deque *deque, int data);
 void	add_last(t_deque *deque, int data);
-int	remove_first(t_deque *deque);
-int	remove_last(t_deque *deque);
+int	remove_first(t_deque **deque);
+int	remove_last(t_deque **deque);
 /* deque_get.c */
 int	get_first(t_deque *deque);
 int	get_last(t_deque *deque);
