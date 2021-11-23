@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 13:13:02 by gilee             #+#    #+#             */
-/*   Updated: 2021/07/01 18:59:02 by gilee            ###   ########.fr       */
+/*   Updated: 2021/11/23 10:18:57 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	get_first(t_deque *deque)
 {
 	int	content;
-	
+
 	content = 0;
 	if (!is_empty(deque))
 		content = deque->head->content;

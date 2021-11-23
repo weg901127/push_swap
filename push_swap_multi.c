@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 17:25:08 by gilee             #+#    #+#             */
-/*   Updated: 2021/07/07 19:41:19 by gilee            ###   ########.fr       */
+/*   Updated: 2021/11/23 10:22:49 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,21 @@
 
 int	p_stack(t_deque *stack_a, t_deque *stack_b)
 {
-	int tmp[3];
+	int	tmp[2];
 	int	res;
 
 	res = FALSE;
-	//if (!is_empty(stack_b))
-	//{
-		tmp[0] = stack_b->head->index;
-		tmp[1] = stack_b->head->chunk;
-		tmp[2] = remove_first(&stack_b);
-		add_first(stack_a, tmp[2]);
-		stack_a->head->index = tmp[0];
-		stack_a->head->chunk = tmp[1];
-		res = TRUE;
-	//}
+	tmp[0] = stack_b->head->index;
+	tmp[1] = remove_first(&stack_b);
+	add_first(stack_a, tmp[1]);
+	stack_a->head->index = tmp[0];
+	res = TRUE;
 	return (res);
 }
 
 int	ss_stack(t_deque *stack_a, t_deque *stack_b)
 {
-	int		res;
+	int	res;
 
 	res = FALSE;
 	if (!is_empty(stack_b) || !is_empty(stack_a))
@@ -43,7 +38,7 @@ int	ss_stack(t_deque *stack_a, t_deque *stack_b)
 
 int	rr_stack(t_deque *stack_a, t_deque *stack_b)
 {
-	int		res;
+	int	res;
 
 	res = r_stack(stack_a) + r_stack(stack_b);
 	return (res);
@@ -51,7 +46,7 @@ int	rr_stack(t_deque *stack_a, t_deque *stack_b)
 
 int	rrr_stack(t_deque *stack_a, t_deque *stack_b)
 {
-	int		res;
+	int	res;
 
 	res = rrx_stack(stack_a) + rrx_stack(stack_b);
 	return (res);

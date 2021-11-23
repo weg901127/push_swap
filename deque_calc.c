@@ -6,16 +6,15 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 13:10:31 by gilee             #+#    #+#             */
-/*   Updated: 2021/07/02 02:45:45 by gilee            ###   ########.fr       */
+/*   Updated: 2021/11/23 10:17:52 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deque.h"
 
-
 void	add_first(t_deque *deque, int data)
 {
-	t_dnode *newnode;
+	t_dnode	*newnode;
 
 	newnode = (t_dnode *)ft_calloc(1, sizeof(t_dnode));
 	newnode->content = data;
@@ -35,7 +34,7 @@ void	add_first(t_deque *deque, int data)
 
 void	add_last(t_deque *deque, int data)
 {
-	t_dnode *newnode;
+	t_dnode	*newnode;
 
 	newnode = (t_dnode *)ft_calloc(1, sizeof(t_dnode));
 	newnode->content = data;
@@ -55,7 +54,7 @@ void	add_last(t_deque *deque, int data)
 
 int	remove_first(t_deque **deque)
 {
-	t_dnode *r_node;
+	t_dnode	*r_node;
 	int		r_content;
 
 	r_content = ERROR;
@@ -69,7 +68,7 @@ int	remove_first(t_deque **deque)
 		if ((*deque)->head == NULL)
 			(*deque)->tail = NULL;
 		else
-			(*deque)->head->prev = NULL;	
+			(*deque)->head->prev = NULL;
 	}
 	((*deque)->size)--;
 	return (r_content);
@@ -77,7 +76,7 @@ int	remove_first(t_deque **deque)
 
 int	remove_last(t_deque **deque)
 {
-	t_dnode *r_node;
+	t_dnode	*r_node;
 	int		r_content;
 
 	r_content = ERROR;
@@ -91,7 +90,7 @@ int	remove_last(t_deque **deque)
 		if ((*deque)->tail == NULL)
 			(*deque)->head = NULL;
 		else
-			(*deque)->tail->next = NULL;	
+			(*deque)->tail->next = NULL;
 	}
 	((*deque)->size)--;
 	return (r_content);

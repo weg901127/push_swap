@@ -6,7 +6,7 @@
 /*   By: gilee <gilee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 13:05:51 by gilee             #+#    #+#             */
-/*   Updated: 2021/06/30 16:14:07 by gilee            ###   ########.fr       */
+/*   Updated: 2021/11/24 00:46:51 by gilee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ void	init_deque(t_deque **deque)
 	(*deque)->size = 0;
 }
 
-int		is_empty(t_deque *deque)
+int	is_empty(t_deque *deque)
 {
 	if (deque->size)
-		return FALSE;
+		return (FALSE);
 	else
-		return TRUE;
+		return (TRUE);
 }
 
 void	free_deque(t_deque **deque)
 {
-	t_dnode *tmp;
+	t_dnode	*tmp;
 
 	if (!is_empty(*deque))
 	{
@@ -46,9 +46,9 @@ void	free_deque(t_deque **deque)
 	free(*deque);
 }
 
-int		len_deque(t_deque *deque)
+int	len_deque(t_deque *deque)
 {
-	t_dnode *tmp;
+	t_dnode	*tmp;
 	int		len;
 
 	len = 0;
